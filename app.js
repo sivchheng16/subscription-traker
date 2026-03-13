@@ -4,6 +4,7 @@ import { PORT } from "./config/eng.js";
 import authRouter from "./route/auth.routes.js";
 import userRouter from "./route/user.routes.js";
 import subscriptionRouter from "./route/subscription.routes.js";
+import connectToDatabase from "./database/mongodb.js";
 
 const app = express();
 
@@ -15,8 +16,16 @@ app.get("/", (req, res) => {
   res.send("welecome to the subscription tracker api");
 });
 
-app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
-});
+async () => {
+  try {
+    await connectToDatabase();
+    app.listen(PORT, () => {
+      console.log(`server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting server", error);
+    process.exit(1);
+  }
+};
 
 export default app;

@@ -4,7 +4,7 @@ const userRouter = Router();
 
 userRouter.get("/", (req, res) => res.send({ title: "get all users" }));
 
-userRouter.get("/:id", (req, res) => res.send({ title: "get user by id" }));
+userRouter.get("/:id", (req, res) => res.send({ title: `get user by id ${req.params.id} ` }));
 
 userRouter.post("/", (req, res) => res.send({ title: "create user" }));
 
