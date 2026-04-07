@@ -1,6 +1,6 @@
-import mongodb from "mongoose";
-import { DB_URI, NODE_ENV } from "../config/eng.js";
 import mongoose from "mongoose";
+import { DB_URI, NODE_ENV } from "../config/eng.js";
+
 
 if (!DB_URI) {
   throw new Error(
@@ -11,12 +11,12 @@ if (!DB_URI) {
 const connectToDatabase = async () => {
   try {
     await mongoose.connect(DB_URI);
-
     console.log(`Connected to database in ${NODE_ENV} mode`);
   } catch (error) {
-    console.error("Error connecting to database", error);
-    process.exit(1);
-    throw error;
+    console.error("Error connecting to database:", error.message);
+    console.warn(
+      "⚠️  Continuing without database. Make sure MongoDB is running or update DB_URI in config/eng.js",
+    );
   }
 };
 

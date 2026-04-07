@@ -1,4 +1,4 @@
-const errorMiddleware = (err, req, res, nex) => {
+const errorMiddleware = (err, req, res, next) => {
   try {
     let error = { ...err };
     error.message = err.message;

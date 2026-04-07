@@ -1,18 +1,22 @@
 import { config } from "dotenv";
+import dotenv from "dotenv";
 
-// DATABASE URI
+dotenv.config({ path: "../.env" });
+// DATABASE URI - Use local MongoDB or update with valid credentials
 export const DB_URI =
-  "mongodb+srv://sivchheng16:sivchheng16@cluster0.qyzm5od.mongodb.net/?appName=Cluster0";
+  process.env.DB_URI ??
+  "mongodb+srv://kheangsivechheng_db_user:subscription@cluster0.p8e1fkj.mongodb.net/subscription-tracker?retryWrites=true&w=majority";
 
 //JWT AUTH
-JWT_SECRET = "secret";
-JWT_EXPIRES_IN = "1d";
+const JWT_SECRET_DEFAULT = "secret";
+const JWT_EXPIRES_IN_DEFAULT = "1d";
 
 config({
-  path: `.eng.${process.env.NODE_ENV || "development"}.local`,
+  path: `.env.${process.env.NODE_ENV || "development"}.local`,
 });
 
 export const PORT = process.env.PORT ?? 3000;
 export const NODE_ENV = process.env.NODE_ENV;
-export const JWT_EXPIRES_IN = process.env.NODE_ENV;
-export const JWT_SECRET = process.env.NODE_ENV;
+export const JWT_EXPIRES_IN =
+  process.env.JWT_EXPIRES_IN ?? JWT_EXPIRES_IN_DEFAULT;
+export const JWT_SECRET = process.env.JWT_SECRET ?? JWT_SECRET_DEFAULT;
